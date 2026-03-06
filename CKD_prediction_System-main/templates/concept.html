@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CKD Project - Concept</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="container">
+        <nav>
+            <div class="logo">CKD<span>Analyzer</span></div>
+            <div class="nav-links" id="navLinks">
+                <a href="index.html">Home</a>
+                <a href="dashboard.html">Dashboard</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+        </nav>
+
+        <header style="text-align: center; padding: 60px 0;">
+            <h1>Data Parameters & Classification</h1>
+            <p style="color: var(--text-muted);">Understanding the 24 input variables used to determine CKD status.</p>
+        </header>
+
+        <div class="concept-grid">
+            <!-- Blood Parameters -->
+            <div class="param-card">
+                <h3>Blood Parameters</h3>
+                <ul class="param-list">
+                    <li>Age <span class="code-tag">age</span></li>
+                    <li>Blood Pressure <span class="code-tag">bp</span></li>
+                    <li>Blood Glucose Random <span class="code-tag">bgr</span></li>
+                    <li>Blood Urea <span class="code-tag">bu</span></li>
+                    <li>Serum Creatinine <span class="code-tag">sc</span></li>
+                    <li>Sodium <span class="code-tag">sod</span></li>
+                    <li>Potassium <span class="code-tag">pot</span></li>
+                    <li>Hemoglobin <span class="code-tag">hemo</span></li>
+                    <li>Packed Cell Volume <span class="code-tag">pcv</span></li>
+                    <li>White Blood Cells <span class="code-tag">wbcc</span></li>
+                    <li>Red Blood Cells <span class="code-tag">rbcc</span></li>
+                </ul>
+            </div>
+
+            <!-- Urine Parameters -->
+            <div class="param-card">
+                <h3>Urine Analysis</h3>
+                <ul class="param-list">
+                    <li>Specific Gravity <span class="code-tag">sg</span></li>
+                    <li>Albumin <span class="code-tag">al</span></li>
+                    <li>Sugar <span class="code-tag">su</span></li>
+                    <li>Red Blood Cells <span class="code-tag">rbc</span></li>
+                    <li>Pus Cell <span class="code-tag">pc</span></li>
+                    <li>Pus Cell Clumps <span class="code-tag">pcc</span></li>
+                    <li>Bacteria <span class="code-tag">ba</span></li>
+                </ul>
+            </div>
+
+            <!-- Clinical Conditions -->
+            <div class="param-card">
+                <h3>Clinical Conditions</h3>
+                <ul class="param-list">
+                    <li>Hypertension <span class="code-tag">htn</span></li>
+                    <li>Diabetes Mellitus <span class="code-tag">dm</span></li>
+                    <li>Coronary Artery Disease <span class="code-tag">cad</span></li>
+                    <li>Appetite <span class="code-tag">appet</span></li>
+                    <li>Pedal Edema <span class="code-tag">pe</span></li>
+                    <li>Anemia <span class="code-tag">ane</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-bottom: 50px;">
+            <p style="color: var(--text-muted); margin-bottom: 20px;">
+                Target Output: <strong style="color: var(--primary)">Class</strong> (CKD or NotCKD)
+            </p>
+            <a href="dashboard.html" class="btn">Go to Analysis Dashboard &rarr;</a>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

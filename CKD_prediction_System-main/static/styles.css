@@ -1,0 +1,72 @@
+/* --- CSS VARIABLES --- */
+:root {
+    --primary: #6366f1;
+    --primary-hover: #4f46e5;
+    --dark: #0f172a;
+    --card: #1e293b;
+    --border: #334155;
+    --text: #f8fafc;
+    --text-muted: #94a3b8;
+    --danger: #ef4444;
+    --success: #10b981;
+    --radius: 8px;
+}
+
+/* --- RESET & GLOBAL --- */
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+body { background-color: var(--dark); color: var(--text); line-height: 1.6; }
+a { text-decoration: none; transition: 0.3s; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+/* --- NAVBAR --- */
+nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; border-bottom: 1px solid var(--border); }
+.logo { font-size: 1.5rem; font-weight: bold; color: white; }
+.logo span { color: var(--primary); }
+.nav-links a { color: var(--text-muted); margin-left: 20px; font-weight: 500; }
+.nav-links a:hover, .nav-links a.active { color: var(--primary); }
+.mobile-menu-btn { display: none; background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; }
+
+/* --- HOME PAGE --- */
+.hero { text-align: center; padding: 100px 0; }
+.hero h1 { font-size: 3rem; margin-bottom: 20px; }
+.btn { display: inline-block; padding: 12px 30px; background: var(--primary); color: white; border-radius: var(--radius); font-weight: bold; border: none; cursor: pointer; }
+.btn:hover { background: var(--primary-hover); transform: translateY(-2px); }
+
+/* --- CONCEPT PAGE --- */
+.concept-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin: 40px 0; }
+.param-card { background: var(--card); padding: 25px; border-radius: var(--radius); border: 1px solid var(--border); border-left: 4px solid var(--primary); }
+.param-card h3 { color: var(--primary); margin-bottom: 15px; }
+.param-list { list-style: none; }
+.param-list li { padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; }
+.code-tag { background: rgba(0,0,0,0.3); padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 0.8rem; color: var(--text-muted); }
+
+/* --- DASHBOARD PAGE --- */
+.dashboard-layout { display: grid; grid-template-columns: 2fr 1fr; gap: 30px; margin-top: 30px; }
+.form-section { background: var(--card); padding: 30px; border-radius: var(--radius); border: 1px solid var(--border); }
+.result-section { background: var(--card); padding: 30px; border-radius: var(--radius); border: 1px solid var(--border); height: fit-content; position: sticky; top: 20px; }
+.section-header { color: var(--primary); font-size: 1.1rem; margin: 20px 0 15px 0; border-bottom: 1px solid var(--border); padding-bottom: 5px; }
+.input-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; }
+.form-group label { display: block; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 5px; }
+.form-control { width: 100%; background: #0f172a; border: 1px solid var(--border); color: white; padding: 10px; border-radius: var(--radius); }
+.form-control:focus { outline: none; border-color: var(--primary); }
+
+.result-box { text-align: center; margin-top: 30px; padding: 20px; background: rgba(255,255,255,0.05); border-radius: var(--radius); display: none; }
+.prediction-val { font-size: 2.5rem; font-weight: 800; margin: 10px 0; }
+.risk-container { height: 10px; background: var(--border); border-radius: 5px; overflow: hidden; margin-top: 10px; }
+.risk-fill { height: 100%; width: 0%; transition: 1s ease; }
+
+/* --- CONTACT PAGE --- */
+.contact-box { background: var(--card); padding: 40px; border-radius: var(--radius); border: 1px solid var(--border); max-width: 600px; margin: 40px auto; }
+.success-msg { color: var(--success); text-align: center; margin-top: 15px; display: none; }
+
+/* --- FOOTER --- */
+footer { border-top: 1px solid var(--border); padding: 40px 0; text-align: center; color: var(--text-muted); margin-top: 50px; }
+
+/* --- RESPONSIVE --- */
+@media (max-width: 768px) {
+    .nav-links { display: none; flex-direction: column; position: absolute; top: 70px; left: 0; width: 100%; background: var(--card); padding: 20px; border-bottom: 1px solid var(--border); }
+    .nav-links.active { display: flex; }
+    .mobile-menu-btn { display: block; }
+    .dashboard-layout { grid-template-columns: 1fr; }
+    .result-section { position: static; }
+}

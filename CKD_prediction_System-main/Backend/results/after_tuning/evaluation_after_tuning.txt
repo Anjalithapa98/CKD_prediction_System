@@ -1,0 +1,60 @@
+
+=== Logistic Regression (after_tuning) ===
+Model       : Logistic Regression
+Accuracy    : 0.9872
+Precision   : 0.9677
+Recall      : 1.0000
+F1-Score    : 0.9836
+ROC AUC     : 1.0000
+RMSE        : 0.1132
+MAE         : 0.0128
+CV Mean     : 0.9903
+CV Std      : 0.0129
+Train Acc   : 1.0000
+Overfit Gap : 0.0128
+--------------------------------------------------
+
+=== SVM (after_tuning) ===
+Model       : SVM
+Accuracy    : 0.9872
+Precision   : 0.9677
+Recall      : 1.0000
+F1-Score    : 0.9836
+ROC AUC     : 0.9944
+RMSE        : 0.1132
+MAE         : 0.0128
+CV Mean     : 0.9870
+CV Std      : 0.0121
+Train Acc   : 0.9903
+Overfit Gap : 0.0031
+--------------------------------------------------
+
+=== Random Forest (after_tuning) ===
+Model       : Random Forest
+Accuracy    : 1.0000
+Precision   : 1.0000
+Recall      : 1.0000
+F1-Score    : 1.0000
+ROC AUC     : 1.0000
+RMSE        : 0.0000
+MAE         : 0.0000
+CV Mean     : 0.9968
+CV Std      : 0.0065
+Train Acc   : 1.0000
+Overfit Gap : 0.0000
+--------------------------------------------------
+
+=== Naive Bayes (after_tuning) ===
+Model       : Naive Bayes
+Accuracy    : 0.9744
+Precision   : 0.9375
+Recall      : 1.0000
+F1-Score    : 0.9677
+ROC AUC     : 0.9792
+RMSE        : 0.1601
+MAE         : 0.0256
+CV Mean     : 0.9611
+CV Std      : 0.0129
+Train Acc   : 0.9643
+Overfit Gap : -0.0101
+--------------------------------------------------

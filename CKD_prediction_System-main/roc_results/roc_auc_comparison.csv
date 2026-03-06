@@ -1,0 +1,5 @@
+Model,ROC-AUC_Before,ROC-AUC_After
+Logistic Regression,1.0,1.0
+Random Forest,1.0,1.0
+SVM,1.0,0.9944444444444444
+Naive Bayes,0.9791666666666667,0.9791666666666667

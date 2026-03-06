@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CKD Project - Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="container">
+        <nav>
+            <div class="logo">CKD<span>Analyzer</span></div>
+            <div class="nav-links" id="navLinks">
+                <a href="index.html">Home</a>
+                <a href="concept.html">Concept</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+        </nav>
+
+        <div class="dashboard-layout">
+            
+            <!-- Input Section -->
+            <div class="form-section">
+                <h2>Patient Data Input</h2>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">Enter the 24 parameters below to run the classification algorithm.</p>
+                
+                <form id="ckdForm">
+                    <!-- Vitals -->
+                    <div class="section-header">Vitals & Blood Count</div>
+                    <div class="input-grid">
+                        <div class="form-group"><label>Age</label><input type="number" id="age" class="form-control"></div>
+                        <div class="form-group"><label>Blood Pressure</label><input type="number" id="bp" class="form-control"></div>
+                        <div class="form-group"><label>Hemoglobin</label><input type="number" step="0.1" id="hemo" class="form-control"></div>
+                        <div class="form-group"><label>Packed Cell Vol</label><input type="number" id="pcv" class="form-control"></div>
+                        <div class="form-group"><label>White Blood Cells</label><input type="number" id="wbcc" class="form-control"></div>
+                        <div class="form-group"><label>Red Blood Cells</label><input type="number" step="0.1" id="rbcc" class="form-control"></div>
+                    </div>
+
+                    <!-- Biochemistry -->
+                    <div class="section-header">Biochemistry</div>
+                    <div class="input-grid">
+                        <div class="form-group"><label>Blood Glucose</label><input type="number" id="bgr" class="form-control"></div>
+                        <div class="form-group"><label>Blood Urea</label><input type="number" id="bu" class="form-control"></div>
+                        <div class="form-group"><label>Serum Creatinine</label><input type="number" step="0.1" id="sc" class="form-control"></div>
+                        <div class="form-group"><label>Sodium</label><input type="number" id="sod" class="form-control"></div>
+                        <div class="form-group"><label>Potassium</label><input type="number" step="0.1" id="pot" class="form-control"></div>
+                    </div>
+
+                    <!-- Urine -->
+                    <div class="section-header">Urine Analysis</div>
+                    <div class="input-grid">
+                        <div class="form-group"><label>Specific Gravity</label><input type="number" step="0.001" id="sg" class="form-control"></div>
+                        <div class="form-group"><label>Albumin</label><select id="al" class="form-control"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select></div>
+                        <div class="form-group"><label>Sugar</label><select id="su" class="form-control"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select></div>
+                        <div class="form-group"><label>RBC</label><select id="rbc" class="form-control"><option value="normal">Normal</option><option value="abnormal">Abnormal</option></select></div>
+                        <div class="form-group"><label>Pus Cell</label><select id="pc" class="form-control"><option value="normal">Normal</option><option value="abnormal">Abnormal</option></select></div>
+                        <div class="form-group"><label>Pus Clumps</label><select id="pcc" class="form-control"><option value="notpresent">Not Present</option><option value="present">Present</option></select></div>
+                        <div class="form-group"><label>Bacteria</label><select id="ba" class="form-control"><option value="notpresent">Not Present</option><option value="present">Present</option></select></div>
+                    </div>
+
+                    <!-- Clinical -->
+                    <div class="section-header">Clinical History</div>
+                    <div class="input-grid">
+                        <div class="form-group"><label>Hypertension</label><select id="htn" class="form-control"><option value="no">No</option><option value="yes">Yes</option></select></div>
+                        <div class="form-group"><label>Diabetes</label><select id="dm" class="form-control"><option value="no">No</option><option value="yes">Yes</option></select></div>
+                        <div class="form-group"><label>CAD</label><select id="cad" class="form-control"><option value="no">No</option><option value="yes">Yes</option></select></div>
+                        <div class="form-group"><label>Appetite</label><select id="appet" class="form-control"><option value="good">Good</option><option value="poor">Poor</option></select></div>
+                        <div class="form-group"><label>Pedal Edema</label><select id="pe" class="form-control"><option value="no">No</option><option value="yes">Yes</option></select></div>
+                        <div class="form-group"><label>Anemia</label><select id="ane" class="form-control"><option value="no">No</option><option value="yes">Yes</option></select></div>
+                    </div>
+
+                    <div style="margin-top: 30px; display: flex; gap: 15px;">
+                        <button type="button" id="analyzeBtn" class="btn">Analyze Data</button>
+                        <button type="button" id="autoFillBtn" class="btn" style="background: transparent; border: 1px solid var(--border);">Auto-Fill Test Data</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Result Section -->
+            <div class="result-section">
+                <h3>Analysis Result</h3>
+                <div id="placeholder" style="text-align: center; margin-top: 40px; color: var(--text-muted);">
+                    <p>Waiting for data input...</p>
+                </div>
+
+                <div id="resultBox" class="result-box">
+                    <div style="font-size: 0.9rem; color: var(--text-muted);">PREDICTED CLASS</div>
+                    <div class="prediction-val" id="predictionText">--</div>
+                    
+                    <div style="text-align: left; margin-top: 20px;">
+                        <div style="font-size: 0.85rem; color: var(--text-muted);">Risk Probability</div>
+                        <div class="risk-container">
+                            <div class="risk-fill" id="riskBar"></div>
+                        </div>
+                        <div style="text-align: right; font-size: 0.8rem; color: var(--text-muted); margin-top: 5px;" id="riskPct">0%</div>
+                    </div>
+
+                    <div style="margin-top: 20px; text-align: left; font-size: 0.85rem; color: var(--text-muted); background: rgba(0,0,0,0.2); padding: 10px; border-radius: var(--radius);">
+                        <strong>Key Factors:</strong>
+                        <ul id="factorList" style="padding-left: 20px; margin-top: 5px; margin-bottom: 0;"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
