@@ -27,8 +27,8 @@ feature_columns = None
 # CHANGE 'your_mysql_password' TO YOUR ACTUAL MYSQL PASSWORD
 db_config = {
     'user': 'root',
-    'password': '', 
-    'host': 'localhost',
+    'password': '1234567890', 
+    'host': '127.0.0.1',
     'database': 'ckd_db', 
     'auth_plugin': 'mysql_native_password' # Use this if you get authentication errors
 }

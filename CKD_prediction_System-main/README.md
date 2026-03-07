@@ -1,6 +1,11 @@
 # CKD_prediction_System
 This Repository consist of CKD project
-<img width="1822" height="1007" alt="image" src="https://github.com/user-attachments/assets/4fb88bb5-04ce-4496-994f-11b65870c190" />
-<img width="1827" height="981" alt="image" src="https://github.com/user-attachments/assets/36a61df0-d5fc-434b-a5da-d9a88fba30d7" />
-<img width="1787" height="1008" alt="image" src="https://github.com/user-attachments/assets/471f9b38-b198-419d-a237-d81d02450b69" />
-<img width="1812" height="979" alt="image" src="https://github.com/user-attachments/assets/657e3068-6568-43f9-8243-a19a72f4d260" />
+![alt text][def] ![alt text][def2] ![alt text][def3] ![alt text][def4] ![alt text][def5] ![alt text][def6]
+
+[def]: <Screenshot 2026-03-07 221003.png>
+[def2]: <Screenshot 2026-03-07 221049.png>
+[def3]: <Screenshot 2026-03-07 221103.png>
+[def4]: <Screenshot 2026-03-07 221121.png>
+[def5]: <Screenshot 2026-03-07 221241.png>
+After the Data were given the analysis was shown as the following !!!
+[def6]: <Screenshot 2026-03-07 221327.png>
