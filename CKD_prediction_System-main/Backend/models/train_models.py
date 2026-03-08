@@ -39,19 +39,20 @@ def train_models():
     trained_models = {}
 
     best_model = None
-    best_score = 0
+    best_score = 0  
     best_model_name = ""
 
     for name, model in models.items():
         print(f"Training {name}...")
         model.fit(X_train, y_train)
 
-        cv_scores = cross_val_score(model, X_train, y_train, cv=5, scoring="accuracy")
+        cv_scores = cross_val_score(model, X_train, y_train, cv=5, scoring="f1")
         mean_score = cv_scores.mean()
 
-        print(f"{name} CV Accuracy: {mean_score:.4f}")
+        print(f"{name} CV F1-score: {mean_score:.4f}")
 
         trained_models[name] = model
+
 
         if mean_score > best_score:
             best_score = mean_score
@@ -65,6 +66,7 @@ def train_models():
     print("Best model saved as 'Backend/models/ckd_model.pkl'")
 
     return trained_models, X_train, X_test, y_train, y_test, scaler, feature_cols
+
 
 
 if __name__ == "__main__":
