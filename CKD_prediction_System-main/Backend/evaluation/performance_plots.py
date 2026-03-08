@@ -53,7 +53,7 @@ def plot_performance_measures(output_dir="performance_results", use_tuned=False)
         train_acc = accuracy_score(y_train, np.ravel(model.predict(X_train)))
         gaps.append(train_acc - accs[-1])
 
-    # Accuracy
+
     plt.figure()
     plt.bar(names, accs)
     plt.title(f"Accuracy ({label})")
@@ -62,7 +62,7 @@ def plot_performance_measures(output_dir="performance_results", use_tuned=False)
     plt.savefig(os.path.join(output_dir, f"accuracy_{label}.png"))
     plt.close()
 
-    # Statistical measures
+
     x = np.arange(len(names))
     width = 0.25
 
@@ -76,7 +76,7 @@ def plot_performance_measures(output_dir="performance_results", use_tuned=False)
     plt.savefig(os.path.join(output_dir, f"statistical_{label}.png"))
     plt.close()
 
-    # ROC-AUC
+  
     plt.figure()
     plt.bar(names, rocs)
     plt.title(f"ROC-AUC ({label})")
@@ -84,7 +84,7 @@ def plot_performance_measures(output_dir="performance_results", use_tuned=False)
     plt.savefig(os.path.join(output_dir, f"roc_auc_{label}.png"))
     plt.close()
 
-    # Overfitting gap
+  
     plt.figure()
     plt.bar(names, gaps)
     plt.title(f"Overfitting Gap ({label})")
@@ -93,7 +93,7 @@ def plot_performance_measures(output_dir="performance_results", use_tuned=False)
     plt.savefig(os.path.join(output_dir, f"overfitting_gap_{label}.png"))
     plt.close()
 
-    # Combined ROC curve
+   
     plt.figure()
 
     for model_name, model in trained_models.items():

@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     
-    // --- 1. AUTO-FILL LOGIC (Remains the same) ---
+  
     const autoFillBtn = document.getElementById('autoFillBtn');
     if (autoFillBtn) {
         autoFillBtn.addEventListener('click', () => {
@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (el) el.value = val;
             };
 
-            // Fill with CKD-like data
+            
             setVal('age', 58);
             setVal('bp', 90);
             setVal('hemo', 9.0);
@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- 2. RANDOM FOREST PREDICTION LOGIC ---
+  
     const analyzeBtn = document.getElementById('analyzeBtn');
     if (analyzeBtn) {
         analyzeBtn.addEventListener('click', () => {
@@ -55,22 +55,21 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.innerText = "Analyzing...";
         btn.disabled = true;
 
-        // Helper to get values
+       
         const parseNum = (id) => parseFloat(document.getElementById(id)?.value) || 0;
         const parseVal = (id) => document.getElementById(id)?.value || '';
 
-        // 1. Gather Data in the exact order the Python model expects
-        // Order: age, bp, sg, al, su, rbc, pc, pcc, ba, bgr, bu, sc, sod, pot, hemo, pcv, wbcc, rbcc, htn, dm, cad, appet, pe, ane
+       
         const inputData = {
             age: parseNum('age'),
             bp: parseNum('bp'),
             sg: parseFloat(parseVal('sg')),
             al: parseInt(parseVal('al')),
             su: parseInt(parseVal('su')),
-            rbc: parseVal('rbc'),       // String: 'normal' or 'abnormal'
-            pc: parseVal('pc'),         // String: 'normal' or 'abnormal'
-            pcc: parseVal('pcc'),       // String: 'present' or 'notpresent'
-            ba: parseVal('ba'),         // String: 'present' or 'notpresent'
+            rbc: parseVal('rbc'),       
+            pc: parseVal('pc'),         
+            pcc: parseVal('pcc'),       
+            ba: parseVal('ba'),         
             bgr: parseNum('bgr'),
             bu: parseNum('bu'),
             sc: parseNum('sc'),
@@ -80,16 +79,16 @@ document.addEventListener('DOMContentLoaded', () => {
             pcv: parseNum('pcv'),
             wbcc: parseNum('wbcc'),
             rbcc: parseNum('rbcc'),
-            htn: parseVal('htn'),       // String: 'yes' or 'no'
-            dm: parseVal('dm'),         // String: 'yes' or 'no'
-            cad: parseVal('cad'),       // String: 'yes' or 'no'
-            appet: parseVal('appet'),   // String: 'good' or 'poor'
-            pe: parseVal('pe'),         // String: 'yes' or 'no'
-            ane: parseVal('ane')        // String: 'yes' or 'no'
+            htn: parseVal('htn'),      
+            dm: parseVal('dm'),         
+            cad: parseVal('cad'),       
+            appet: parseVal('appet'),  
+            pe: parseVal('pe'),         
+            ane: parseVal('ane')        
         };
 
         try {
-            // 2. Send to Python Backend
+            
             const response = await fetch('/predict', {
                 method: 'POST',
                 headers: {
@@ -104,7 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const result = await response.json();
 
-            // 3. Update UI with Random Forest Result
+           
             updateDashboardUI(result);
 
         } catch (error) {
@@ -130,16 +129,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const score = data.probability;
             
-            // Determine Label and Color based on RF Probability
+            
             let label = 'NOT CKD';
-            let color = '#10b981'; // Green
+            let color = '#10b981'; 
 
             if (score > 40 && score <= 75) {
                 label = 'NOT CKD';
-                color = '#f59e0b'; // Orange
+                color = '#f59e0b'; 
             } else if (score > 75) {
                 label = 'CKD Detected';
-                color = '#ef4444'; // Red
+                color = '#ef4444'; 
             }
 
             predictionText.innerText = label;
@@ -149,8 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
             riskBar.style.backgroundColor = color;
             riskPct.innerText = score + "% Probability";
 
-            // Random Forest is a "Black Box", so we can't list specific factors like before
-            // We display the model's confidence instead.
+          
             factorList.innerHTML = '';
             const note = document.createElement('li');
             note.innerText = `Model Confidence: ${data.probability}% (Random Forest)`;
@@ -164,7 +162,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- 3. CONTACT & MOBILE MENU (Unchanged) ---
+  
     const contactForm = document.getElementById('contactForm');
     if (contactForm) {
         contactForm.addEventListener('submit', (e) => {

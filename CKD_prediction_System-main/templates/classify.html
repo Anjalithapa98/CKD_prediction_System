@@ -48,7 +48,7 @@
 <body>
 
 <div class="container">
-    <!-- LEFT: Input Form -->
+   
     <section>
         <nav>
              <a href="{{ url_for('home') }}">Home</a>
@@ -58,7 +58,7 @@
         </nav>
 
         <form id="ckdForm">
-            <!-- General Info -->
+           
             <div class="card">
                 <h3>General Info</h3>
                 <div class="form-grid">
@@ -67,7 +67,7 @@
                 </div>
             </div>
 
-            <!-- Urine Analysis -->
+           
             <div class="card">
                 <h3>Urine Analysis</h3>
                 <div class="form-grid">
@@ -81,7 +81,7 @@
                 </div>
             </div>
 
-            <!-- Blood Chemistry -->
+            
             <div class="card">
                 <h3>Blood Chemistry</h3>
                 <div class="form-grid">
@@ -97,7 +97,7 @@
                 </div>
             </div>
 
-            <!-- Clinical History -->
+            
             <div class="card">
                 <h3>Clinical History</h3>
                 <div class="form-grid">
@@ -114,7 +114,7 @@
         </form>
     </section>
 
-    <!-- RIGHT: Sidebar & Results -->
+   
     <aside class="sidebar">
         <div class="card">
             <h3>Dataset Analysis</h3>
@@ -149,8 +149,8 @@
 </div>
 
 <script>
-    // Initialize dataset and baselines
-    const RAW_DATA = []; // your dataset here (keep existing)
+  
+    const RAW_DATA = []; 
     
     function analyzeDataset() {
         const healthyData = RAW_DATA.filter(r => r.class==='notckd');

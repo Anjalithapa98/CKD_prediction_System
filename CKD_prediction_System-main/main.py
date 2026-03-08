@@ -2,43 +2,41 @@ import os
 import pickle
 import numpy as np
 import pandas as pd
-import mysql.connector  # ADDED: MySQL Connector
+import mysql.connector 
 from flask import Flask, render_template, send_from_directory, request, jsonify
 
-# --- IMPORT YOUR BACKEND MODULES ---
-# Ensure your directory structure allows this import
+
 try:
     from Backend.preprocessing.preprocessing import load_and_preprocess_data
 except ImportError:
-    # Fallback if running from root directly without package structure
+    
     import sys
     sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
     from Backend.preprocessing.preprocessing import load_and_preprocess_data
 
 app = Flask(__name__)
 
-# --- GLOBAL VARIABLES ---
+
 model = None
 scaler = None
 target_encoder = None
 feature_columns = None
 
-# --- MYSQL CONFIGURATION (FROM YOUR SNIPPET) ---
-# CHANGE 'your_mysql_password' TO YOUR ACTUAL MYSQL PASSWORD
+
 db_config = {
     'user': 'root',
     'password': '1234567890', 
     'host': '127.0.0.1',
     'database': 'ckd_db', 
-    'auth_plugin': 'mysql_native_password' # Use this if you get authentication errors
+    'auth_plugin': 'mysql_native_password' 
 }
 
-# --- DATABASE FUNCTIONS (FROM YOUR SNIPPET) ---
+
 
 def get_db_connection():
     try:
         conn = mysql.connector.connect(**db_config)
-        # dictionary=True allows accessing columns by name (like row_factory in SQLite)
+
         cursor = conn.cursor(dictionary=True) 
         return conn, cursor
     except mysql.connector.Error as err:
@@ -47,8 +45,8 @@ def get_db_connection():
 
 def init_db():
     """Creates the database table if it doesn't exist."""
-    
-    # 1. Connect to MySQL Server (without specifying DB) to create the DB if missing
+
+
     try:
         temp_conn = mysql.connector.connect(
             user='root', 
@@ -63,7 +61,7 @@ def init_db():
         print(f"Error creating database: {err}")
         return
 
-    # 2. Create the Table
+ 
     conn, cursor = get_db_connection()
     if not conn: return
 
@@ -101,14 +99,14 @@ def init_db():
     conn.close()
     print("Database table checked/created.")
 
-# --- EXISTING ML FUNCTIONS (UNCHANGED) ---
+
 
 def load_ml_components():
     """Loads the pre-trained model and preprocessing artifacts."""
     global model, scaler, target_encoder, feature_columns
     
     print("Loading preprocessing artifacts...")
-    # 1. Load Preprocessing objects (Scalers, Encoders, Column Order)
+
     try:
         X_train, X_test, y_train, y_test, scaler_obj, encoder_obj, cols = load_and_preprocess_data()
         scaler = scaler_obj
@@ -119,7 +117,8 @@ def load_ml_components():
         print(f"Error loading preprocessing: {e}")
         raise
 
-    # 2. Load the Tuned Random Forest Model
+
+
     model_path = "Backend/models/ckd_model.pkl"
     if not os.path.exists(model_path):
         model_path = "ckd_model.pkl"
@@ -164,13 +163,13 @@ def predict():
     try:
         data = request.json
         
-        # --- STEP 1: CREATE DATAFRAME ---
+
         input_df = pd.DataFrame([data])
 
-        # --- STEP 2: ENSURE COLUMN ORDER ---
+
         input_df = input_df.reindex(columns=feature_columns)
 
-        # --- STEP 3: MANUAL ENCODING ---
+
         cat_mapping_normal = {
             'abnormal': 0, 'normal': 1,
             'notpresent': 0, 'present': 1, 
@@ -185,17 +184,17 @@ def predict():
 
         input_df = input_df.astype(float)
 
-        # --- STEP 4: HANDLE MISSING VALUES ---
+
         input_df = input_df.fillna(0)
 
-        # --- STEP 5: SCALING ---
+
         input_scaled = scaler.transform(input_df)
 
-        # --- STEP 6: PREDICTION ---
+
         prediction = model.predict(input_scaled)[0]
         probability = model.predict_proba(input_scaled)[0]
 
-        # --- STEP 7: DECODE LABEL ---
+
         predicted_label = target_encoder.inverse_transform([prediction])[0]
         
         if prediction == 1:
@@ -203,26 +202,24 @@ def predict():
         else:
             prob_percent = round(probability[0] * 100, 2)
 
-        # --- NEW: SAVE TO MYSQL DATABASE ---
+
         try:
             conn, cursor = get_db_connection()
             if conn:
-                # Define columns matching the 'patients' table in init_db
-                # We use the original 'data' dictionary to get raw values (strings/numbers)
+
                 columns = [
                     'age', 'bp', 'sg', 'al', 'su', 'rbc', 'pc', 'pcc', 'ba', 
                     'bgr', 'bu', 'sc', 'sod', 'pot', 'hemo', 'pcv', 'wbcc', 
                     'rbcc', 'htn', 'dm', 'cad', 'appet', 'pe', 'ane'
                 ]
                 
-                # Extract values from the input data in the correct order
-                # Using .get() handles missing keys safely (returns None)
+
                 values = [data.get(col) for col in columns]
                 
-                # Append the prediction result
+
                 values.append(predicted_label)
                 
-                # Construct the query
+
                 placeholders = ', '.join(['%s'] * (len(columns) + 1))
                 col_names = ', '.join(columns + ['classification'])
                 query = f"INSERT INTO patients ({col_names}) VALUES ({placeholders})"
@@ -245,7 +242,7 @@ def predict():
         traceback.print_exc()
         return jsonify({'error': str(e)}), 500
 
-# Static Routes
+
 @app.route('/styles.css')
 def serve_css():
     return send_from_directory('static', 'styles.css')
@@ -255,10 +252,10 @@ def serve_js():
     return send_from_directory('static', 'script.js')
 
 if __name__ == '__main__':
-    # Initialize MySQL Database on startup
+
     init_db()
     
-    # Load ML components
+
     load_ml_components()
     
     app.run(debug=True, port=5000)

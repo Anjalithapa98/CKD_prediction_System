@@ -11,7 +11,7 @@ def tuning():
     print("Running Hyperparameter Tuning (Anti-overfitting)...")
     X_train, X_test, y_train, y_test, scaler, _, _ = load_and_preprocess_data()
 
-    # Logistic Regression
+  
     lr_grid = {
    
         "C": [0.01, 0.1, 0.5, 1.0],
@@ -26,7 +26,7 @@ def tuning():
     lr = GridSearchCV(LogisticRegression(random_state=42), lr_grid, cv=5, scoring="accuracy", n_jobs=-1)
     lr.fit(X_train, y_train)
 
-    # SVM
+   
     svm_grid = {
    
         "C": [0.1, 0.5, 1.0],
@@ -39,7 +39,7 @@ def tuning():
     svm = GridSearchCV(SVC(probability=True, random_state=42), svm_grid, cv=5, scoring="accuracy", n_jobs=-1)
     svm.fit(X_train, y_train)
 
-    # Random Forest
+   
     rf_grid = {
        
         "n_estimators": [100, 150, 200],
@@ -53,7 +53,7 @@ def tuning():
     rf = GridSearchCV(RandomForestClassifier(random_state=42), rf_grid, cv=5, scoring="accuracy", n_jobs=-1)
     
     rf.fit(X_train, y_train)
-    # Naive Bayes (no hyperparams)
+   
     nb = GaussianNB(var_smoothing=1e-8)
     nb.fit(X_train, y_train)
 

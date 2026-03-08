@@ -82,7 +82,7 @@ def evaluate_models(use_tuned=False, output_dir="evaluation_results"):
             train_acc = accuracy_score(y_train, np.ravel(model.predict(X_train)))
             overfit_gap = train_acc - accuracy
 
-            # Print and save
+
             print(f"\nModel: {model_name}")
             print(f"Accuracy={accuracy:.4f}, Precision={precision:.4f}, Recall={recall:.4f}, F1={f1:.4f}, ROC-AUC={roc_auc:.4f}, CV Mean={cv_mean:.4f}, Overfit Gap={overfit_gap:.4f}")
             f.write(f"Model: {model_name}\nAccuracy={accuracy:.4f}\nPrecision={precision:.4f}\nRecall={recall:.4f}\nF1={f1:.4f}\nROC-AUC={roc_auc:.4f}\nCV Mean={cv_mean:.4f}\nOverfit Gap={overfit_gap:.4f}\nConfusion Matrix:\n{cm}\n{'-'*40}\n")

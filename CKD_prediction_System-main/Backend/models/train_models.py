@@ -37,21 +37,35 @@ def train_models():
     }
 
     trained_models = {}
+
+    best_model = None
+    best_score = 0
+    best_model_name = ""
+
     for name, model in models.items():
         print(f"Training {name}...")
         model.fit(X_train, y_train)
+
         cv_scores = cross_val_score(model, X_train, y_train, cv=5, scoring="accuracy")
-        print(f"{name} CV Accuracy: {cv_scores.mean():.4f}")
+        mean_score = cv_scores.mean()
+
+        print(f"{name} CV Accuracy: {mean_score:.4f}")
+
         trained_models[name] = model
 
-    # Save the best model (let's say Random Forest) as ckd_model.pkl
-    best_model = trained_models["Random Forest"]
+        if mean_score > best_score:
+            best_score = mean_score
+            best_model = model
+            best_model_name = name
+
     with open("Backend/models/ckd_model.pkl", "wb") as f:
         pickle.dump(best_model, f)
-    print("Random Forest model saved as 'Backend/models/ckd_model.pkl'")
+
+    print(f"Best model: {best_model_name}")
+    print("Best model saved as 'Backend/models/ckd_model.pkl'")
 
     return trained_models, X_train, X_test, y_train, y_test, scaler, feature_cols
 
-# ------------------- Run Training -------------------
+
 if __name__ == "__main__":
     train_models()

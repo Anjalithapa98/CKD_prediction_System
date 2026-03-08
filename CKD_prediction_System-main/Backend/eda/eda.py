@@ -127,12 +127,12 @@ def perform_eda(output_dir="eda_plots"):
     df = load_raw_data()
     df.replace('?', np.nan, inplace=True)
 
-    # Numeric columns for plotting
+
     numeric_df = df.select_dtypes(include=["int64", "float64"])
     for col in numeric_df.columns:
         numeric_df[col] = pd.to_numeric(numeric_df[col], errors='coerce')
 
-    # Drop empty or constant columns
+
     numeric_df = numeric_df.dropna(axis=1, how='all')
     numeric_df = numeric_df.loc[:, numeric_df.nunique() > 1]
 

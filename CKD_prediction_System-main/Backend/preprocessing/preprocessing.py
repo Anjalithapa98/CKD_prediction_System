@@ -46,11 +46,11 @@ def load_and_preprocess_data(test_size=0.2, random_state=42):
     num_cols = X.select_dtypes(include=['float64', 'int64']).columns.tolist()
     cat_cols = X.select_dtypes(include=['object']).columns.tolist()
 
-    # Convert numeric columns to numeric, coerce errors to NaN
+   
     for col in num_cols:
         X[col] = pd.to_numeric(X[col], errors='coerce')
 
-    # Drop all-empty numeric columns
+  
     empty_num_cols = X[num_cols].columns[X[num_cols].isna().all()].tolist()
     if empty_num_cols:
         print(f"Dropping completely empty numeric columns: {empty_num_cols}")
@@ -75,13 +75,13 @@ def load_and_preprocess_data(test_size=0.2, random_state=42):
                 le = LabelEncoder()
                 X[col] = le.fit_transform(X[col])
 
-    # Drop constant columns
+  
     constant_cols = [col for col in X.columns if X[col].nunique() <= 1]
     if constant_cols:
         print(f"Dropping constant columns: {constant_cols}")
         X.drop(columns=constant_cols, inplace=True)
 
-    # Stratified split
+    
     stratify_y = y if y.value_counts().min() >= 2 else None
     X_train, X_test, y_train, y_test = train_test_split(
         X, y,
@@ -90,7 +90,7 @@ def load_and_preprocess_data(test_size=0.2, random_state=42):
         random_state=random_state
     )
 
-    # Check for NaN or inf before scaling
+    
     if X_train.isna().any().any() or X_test.isna().any().any() or y_train.isna().any() or y_test.isna().any():
         raise ValueError("NaN values found after preprocessing!")
 
@@ -98,7 +98,7 @@ def load_and_preprocess_data(test_size=0.2, random_state=42):
     X_train = scaler.fit_transform(X_train)
     X_test = scaler.transform(X_test)
 
-    # Convert y to 1D numpy arrays
+   
     y_train = y_train.values
     y_test = y_test.values
 

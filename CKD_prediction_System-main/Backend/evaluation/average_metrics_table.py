@@ -34,7 +34,7 @@ def compute_average_metrics(use_tuned=False, output_dir="performance_results"):
     for model_name, model in trained_models.items():
     
         y_pred = model.predict(X_test)
-        y_pred = np.ravel(y_pred)  # ensure 1D
+        y_pred = np.ravel(y_pred) 
 
         acc = accuracy_score(y_test, y_pred)
     
@@ -44,7 +44,7 @@ def compute_average_metrics(use_tuned=False, output_dir="performance_results"):
     
         f1 = f1_score(y_test, y_pred)
 
-        # ROC-AUC
+
         try:
             y_prob = model.predict_proba(X_test)[:, 1]
             roc = roc_auc_score(y_test, y_prob)
