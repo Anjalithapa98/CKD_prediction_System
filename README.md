@@ -1,1 +1,1 @@
-# CKD_Prediction
+This repository contains all the codes for the ckd prediction. It contains both the front end and the backend. Front end is done using html,css and js where as the backend is done using python. It shows the possible risk in the perenctage and predict where it is ckd or not baesd on the database provided.
